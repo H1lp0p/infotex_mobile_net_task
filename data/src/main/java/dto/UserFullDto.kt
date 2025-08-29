@@ -2,6 +2,9 @@ package dto
 
 import com.google.gson.annotations.SerializedName
 
+//DTO for Retrofit
+//Also used there @SerializedName just to try it
+
 data class UserFullDto (
 
     val id: Int,

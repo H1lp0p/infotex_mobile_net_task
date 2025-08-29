@@ -22,6 +22,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import viewmodels.UserInfoViewModel
 
+//Second screen with user info. Just make User model from domain looks pretty
+//And we use LaunchedEffect(id) to prevent multiple fetches to view model
+
 @Composable
 fun UserFullInfo(
     id: Int,

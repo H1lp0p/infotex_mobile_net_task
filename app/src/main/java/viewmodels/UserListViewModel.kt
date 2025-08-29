@@ -10,6 +10,8 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
+//ViewModel for first screen. Just normal viewModel without using MVI
+
 @HiltViewModel
 class UserListViewModel @Inject constructor(
     private val userRepository: UserRepository

@@ -10,6 +10,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+//ViewModel for screen with info about user. Just normal viewModel without using MVI
+//You need to call loadUser from component
+
 @HiltViewModel
 class UserInfoViewModel @Inject constructor(
     private val userRepository: UserRepository
@@ -23,10 +26,6 @@ class UserInfoViewModel @Inject constructor(
 
     private val _pending = MutableStateFlow<Boolean>(false)
     val pending : StateFlow<Boolean> = _pending
-
-    init {
-
-    }
 
     fun loadUser(id: Int){
         viewModelScope.launch {

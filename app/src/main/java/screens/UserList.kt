@@ -19,6 +19,11 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import components.UserListItem
 import viewmodels.UserListViewModel
 
+
+//First screen with list of users
+//Get data from viewmodel -> make look normal -> call loadUserList if need to update
+//And also, userList is doubled to see how it looks with big list of users
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UserList(

@@ -19,6 +19,7 @@ import kotlinx.serialization.Serializable
 import screens.UserFullInfo
 import screens.UserList
 
+//Main activity. We use single-activity structure to normal use of navHost from jetpack navigation
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
@@ -39,11 +40,16 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//Destination object and class with @Serializable for NavHost
+//Normally should be in different files
+
 @Serializable
 object UserList
 @Serializable
 data class UserInfo(val id: Int)
 
+//You need to call rememberNavController from @Composable
+//This composable controls navigation
 @Composable
 fun MainComposable(modifier: Modifier = Modifier){
     val navController = rememberNavController()
@@ -56,6 +62,7 @@ fun MainComposable(modifier: Modifier = Modifier){
         composable<UserList> {
             UserList(onUserSelect = {id ->
                 navController.navigate(UserInfo(id)){
+                    //to prevent from double adding next navigation to back stack
                     launchSingleTop = true
                 }
             })

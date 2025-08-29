@@ -5,6 +5,7 @@ import dto.UserShortDto
 import retrofit2.http.GET
 import retrofit2.http.Path
 
+//Just interface for Retrofit. Use only two endpoints
 interface UserApiService {
     @GET("users")
     suspend fun getUsers(): List<UserShortDto>

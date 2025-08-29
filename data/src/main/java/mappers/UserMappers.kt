@@ -8,6 +8,8 @@ import dto.CompanyDto
 import dto.UserFullDto
 import dto.UserShortDto
 
+//Mappers for smooth transfer from retrofit to ui via repository, view model and all other stuff
+
 fun UserShortDto.toModel(): User = User(
     id = this.id,
     name = this.name,

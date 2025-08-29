@@ -17,6 +17,9 @@ import com.example.domain.models.Company
 import com.example.domain.models.User
 import com.example.infotex_net_task.ui.theme.Infotex_net_taskTheme
 
+
+//Single item from user list
+
 @Composable
 fun UserListItem(
     user: User,
