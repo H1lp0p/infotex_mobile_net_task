@@ -1,9 +1,11 @@
 package hilt
 
+import com.example.domain.reposiotories.UserRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import impl.UserRepositoryImpl
 import retrofit.UserApiService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -26,5 +28,11 @@ object ApiModule {
     @Singleton
     fun provideUserApiService(retrofit: Retrofit): UserApiService {
         return retrofit.create(UserApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserRepository(service: UserApiService) : UserRepository{
+        return UserRepositoryImpl(service)
     }
 }

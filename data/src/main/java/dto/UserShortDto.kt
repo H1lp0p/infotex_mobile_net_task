@@ -4,5 +4,5 @@ data class UserShortDto (
     val id: Int,
     val name: String,
     val email: String,
-    val userName: String,
+    val username: String,
 )

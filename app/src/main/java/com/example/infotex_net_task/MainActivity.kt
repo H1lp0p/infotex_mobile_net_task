@@ -7,23 +7,30 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import com.example.infotex_net_task.ui.theme.Infotex_net_taskTheme
-import dagger.hilt.android.HiltAndroidApp
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.serialization.Serializable
+import screens.UserFullInfo
+import screens.UserList
 
-@HiltAndroidApp
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             Infotex_net_taskTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
+                Scaffold(modifier = Modifier
+                    .fillMaxSize()
+                ) { innerPadding ->
+                    MainComposable(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }
@@ -32,18 +39,32 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
+@Serializable
+object UserList
+@Serializable
+data class UserInfo(val id: Int)
 
-@Preview(showBackground = true)
 @Composable
-fun GreetingPreview() {
-    Infotex_net_taskTheme {
-        Greeting("Android")
+fun MainComposable(modifier: Modifier = Modifier){
+    val navController = rememberNavController()
+
+    NavHost(
+        navController = navController,
+        startDestination = UserList,
+        modifier = modifier
+    ){
+        composable<UserList> {
+            UserList(onUserSelect = {id ->
+                navController.navigate(UserInfo(id)){
+                    launchSingleTop = true
+                }
+            })
+        }
+        composable<UserInfo> { backstackEntry ->
+            val userInfo: UserInfo = backstackEntry.toRoute()
+            UserFullInfo(
+                id = userInfo.id,
+                onGoBack = {navController.popBackStack()})
+        }
     }
 }

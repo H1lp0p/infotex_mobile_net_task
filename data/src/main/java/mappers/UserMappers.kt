@@ -11,7 +11,7 @@ import dto.UserShortDto
 fun UserShortDto.toModel(): User = User(
     id = this.id,
     name = this.name,
-    userName = this.userName,
+    userName = this.username,
     email = this.email,
     address = Address(city = "none", street = "none"),
     company = Company(name = "none")
