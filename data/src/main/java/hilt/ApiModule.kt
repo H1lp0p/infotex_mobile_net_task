@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
-//Setting some providers for DI via Dagger Hilt. I used Singleton for it because we don't need more
+//Setting some providers for DI via Dagger Hilt
 
 @Module
 @InstallIn(SingletonComponent::class)
