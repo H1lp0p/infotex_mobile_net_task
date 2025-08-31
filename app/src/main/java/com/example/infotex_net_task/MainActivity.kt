@@ -4,6 +4,10 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
@@ -48,7 +52,7 @@ object UserList
 @Serializable
 data class UserInfo(val id: Int)
 
-//You need to call rememberNavController from @Composable
+//You need to call rememberNavController from @Composable, so added this one like a wrapper
 //This composable controls navigation
 @Composable
 fun MainComposable(modifier: Modifier = Modifier){
@@ -67,7 +71,27 @@ fun MainComposable(modifier: Modifier = Modifier){
                 }
             })
         }
-        composable<UserInfo> { backstackEntry ->
+        composable<UserInfo>(
+            //attempt to animate transition, but it's lagging on popBackStack from UserInfo to UserList
+            enterTransition = {
+                slideInHorizontally(
+                    initialOffsetX = { it },
+                    animationSpec = tween(durationMillis = 150, easing = LinearEasing)
+                )
+              },
+            exitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { it },
+                    animationSpec = tween(durationMillis = 150, easing = LinearEasing)
+                )
+            },
+            popExitTransition = {
+                slideOutHorizontally(
+                    targetOffsetX = { it },
+                    animationSpec = tween(durationMillis = 150, easing = LinearEasing)
+                )
+            },
+        ) { backstackEntry ->
             val userInfo: UserInfo = backstackEntry.toRoute()
             UserFullInfo(
                 id = userInfo.id,
